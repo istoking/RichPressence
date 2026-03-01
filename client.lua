@@ -13,7 +13,7 @@ local RPC = {
 
     Buttons = {
         { index = 0, name = "Join Discord",    url = "https://discord.gg/invite" },
-        { index = 1, name = "Connect to the City",  url = "https://cfx.re/join/serverID" },
+        { index = 1, name = "Connect to the City!",  url = "https://cfx.re/join/serverID" },
     },
 
     UpdateIntervalMs  = 20000,
@@ -234,6 +234,54 @@ local OnlineCount = 0
 local MaxClients = tonumber(GetConvar('sv_maxclients', '48')) or 48
 
 local function nowMs() return GetGameTimer() end
+    
+-- Discord RPC button helper (max 2 buttons; indices 0/1). Re-applies periodically to avoid Discord/FiveM flakiness.
+-- =========================
+-- DISCORD BUTTONS (SAFE)
+-- =========================
+local actionsAppliedAt = 0
+
+local function sanitizeButtons(buttons)
+    local out = {}
+    if type(buttons) ~= "table" then return out end
+
+    for _, b in pairs(buttons) do
+        if type(b) == "table" then
+            local name = b.name or b.text
+            local url  = b.url
+            if type(name) == "string" and name ~= "" and type(url) == "string" and url ~= "" then
+                out[#out + 1] = { index = b.index, name = name, url = url }
+            end
+        end
+    end
+
+    if #out > 2 then
+        out = { out[1], out[2] }
+    end
+
+    for i, b in ipairs(out) do
+        b.index = (b.index == 0 or b.index == 1) and b.index or (i - 1)
+    end
+
+    return out
+end
+
+local function applyDiscordActions(force)
+    local t = GetGameTimer()
+    if (not force) and (t - actionsAppliedAt) < 15000 then
+        return
+    end
+
+    -- AppId must be set before actions.
+    SetDiscordAppId(RPC.AppId)
+    local btns = sanitizeButtons(RPC.Buttons)
+    for _, v in ipairs(btns) do
+        pcall(SetDiscordRichPresenceAction, v.index, v.name, v.url)
+    end
+
+    actionsAppliedAt = t
+end
+
 local function pickRandom(list) return list[math.random(1, #list)] end
 
 local function getZoneLabel(coords)
@@ -419,7 +467,9 @@ end
 -- QBCORE SYNC
 -- =========================
 local function refreshPlayerData()
-    local pd = QBCore.Functions.GetPlayerData()
+            applyDiscordActions(true)
+applyDiscordActions(true)
+local pd = QBCore.Functions.GetPlayerData()
     if pd then PlayerData = pd end
 end
 
@@ -450,7 +500,14 @@ end)
 -- =========================
 -- PS-DISPATCH “RESPONDING” HOOKS
 -- =========================
+local function isDispatchJob()
+    local job = PlayerData and PlayerData.job
+    return job and (job.type == 'leo' or job.type == 'ems')
+end
+
 local function bumpDispatchStatus()
+    -- ps-dispatch fires alerts (e.g. shots fired) for everyone; only LEO/EMS should show "Responding"
+    if not isDispatchJob() then return end
     dispatchUntil = nowMs() + RPC.DispatchStatusMs
 end
 
@@ -466,20 +523,15 @@ RegisterNetEvent('ps-dispatch:client:DispatchNotify', bumpDispatchStatus)
 CreateThread(function()
     math.randomseed(GetGameTimer())
 
+    -- allow QBCore/PlayerData to populate
     Wait(1500)
     refreshPlayerData()
-
-    if firstSpawn then
-        for _, v in pairs(RPC.Buttons) do
-            SetDiscordRichPresenceAction(v.index, v.name, v.url)
-        end
-        firstSpawn = false
-    end
 end)
 
 CreateThread(function()
     while true do
         SetDiscordAppId(RPC.AppId)
+        applyDiscordActions()
         SetDiscordRichPresenceAsset(RPC.LargeAsset)
         SetDiscordRichPresenceAssetText(RPC.LargeText)
         SetDiscordRichPresenceAssetSmall(RPC.SmallAsset)
