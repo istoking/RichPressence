@@ -79,6 +79,7 @@ Buttons = {
 ```
 
 > **NOTE**: Discord no longer reliably renders the old FiveM Rich Presence “action buttons” created via SetDiscordRichPresenceAction()
+> 
 > The buttons in this resource are merely placeholders, until there's an effective way to add them again.
 
 ### 4) Update Intervals (optional)
