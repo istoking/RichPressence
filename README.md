@@ -10,7 +10,7 @@ A lightweight Discord Rich Presence resource for FiveM/QBCore that shows players
   - Large + small image assets (configurable)
   - Custom hover text for assets
   - Two configurable buttons (Discord, direct connect, website, etc). 
-  (**This setting is currently depreciated**)
+  (**You can't see the buttons yourself, only other discord members can when they check your profile**)
 - **Dynamic status text**
   - Uses GTA zone names with a “pretty name” map (e.g. `ROCKF` → Rockford Hills)
   - Can display player name (toggle)
@@ -74,14 +74,10 @@ Discord supports up to **two** buttons:
 
 ```lua
 Buttons = {
-  { index = 0, name = "Join Discord", url = "https://discord.gg/yourinvite" },
-  { index = 1, name = "Connect to IRP", url = "https://cfx.re/join/yourcode" },
+  { index = 0, name = "Join Discord", url = "https://discord.gg/yourinvite" }, -- Edit yourinvite with your discord invite
+  { index = 1, name = "Connect to IRP", url = "https://cfx.re/join/yourcode" }, -- Edit yourcode with your server join code
 },
 ```
-
-> **NOTE**: Discord no longer reliably renders the old FiveM Rich Presence “action buttons” created via SetDiscordRichPresenceAction()
-> 
-> The buttons in this resource are merely placeholders, until there's an effective way to add them again.
 
 ### 4) Update Intervals (optional)
 

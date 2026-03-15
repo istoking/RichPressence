@@ -4,28 +4,28 @@ local QBCore = exports['qb-core']:GetCoreObject()
 -- DISCORD RPC SETTINGS
 -- =========================
 local RPC = {
-    AppId = yourappid, -- replace with your own app ID
+    AppId = 12345678910, -- Replace with your Discord application's client ID
 
-    LargeAsset = "large_asset", -- image name for the large icon (set in your Discord app settings)
-    LargeText  = "large text", -- hover text for the large icon (replace with your server name or slogan)
-    SmallAsset = "button", -- button icon (set in your Discord app settings)
-    SmallText  = "discord.gg/yourinvite", -- replace with your own invite or website
+    LargeAsset = "server_logo", -- Replace with the key of your uploaded large image asset
+    LargeText  = "Server Name", -- Hover text for the large image
+    SmallAsset = "button", -- Replace with the key of your uploaded small image asset (e.g. a "Join Us" icon)
+    SmallText  = "discord.gg/discordinvite", -- Hover text for the small image (e.g. your Discord invite)
 
     Buttons = {
-        { index = 0, name = "Join Discord",    url = "https://discord.gg/invite" },
-        { index = 1, name = "Connect to the City!",  url = "https://cfx.re/join/serverID" },
+        { index = 0, name = "Join Discord",    url = "https://discord.gg/discordinvite" },
+        { index = 1, name = "Connect to Server!",  url = "https://cfx.re/join/joincode" },
     },
 
-    UpdateIntervalMs  = 20000,
-    AssetIntervalMs   = 120000,
-    DispatchStatusMs  = 60000,
+    UpdateIntervalMs  = 20000, -- How often to update presence details/state (20 seconds is a good balance for dynamic info without hitting rate limits)
+    AssetIntervalMs   = 120000, -- How often to re-apply asset and button info (in case Discord/FiveM resets it; 2 minutes is a reasonable safeguard without being excessive)
+    DispatchStatusMs  = 60000, -- How long to show "Responding" status after a ps-dispatch alert (in milliseconds)
 
-    ShowPlayerName = true,
+    ShowPlayerName = true, -- Set to false to hide player name and ID from the details line, leaving only job and player count info.
 
     Taglines = {
         "Serious RP. Silly choices.",
         "Consequences sold separately.",
-        "Keep it clean. Or don’t. 👀",
+        "Keep it clean. Or don't. 👀",
         "NZ time. Worldwide problems.",
         "Law-abiding-ish, on weekdays.",
         "Big plans. Small alibis.",
@@ -55,10 +55,10 @@ local RPC = {
         "Drama-free(ish).",
         "Keep it IC. Mostly.",
         "Good vibes, bad habits.",
-        "If it’s stupid but works…",
+        "If it's stupid but works…",
         "Every action, a court date.",
         "Slow days. Fast cars.",
-        "Where “my bad” is a lifestyle.",
+        "Where 'my bad' is a lifestyle.",
         "Play smart. Get caught anyway.",
         "New day, new felony.",
         "Serious faces. Funny outcomes.",
@@ -67,7 +67,7 @@ local RPC = {
         "Your grindset vs. my headset.",
         "Honest work, dishonest hours.",
         "Make friends. Make getaways.",
-        "Don’t start it. Finish it.",
+        "Don't start it. Finish it.",
         "The city provides. The city snitches.",
         "Big RP energy.",
         "Choices. Consequences. Comedy.",
@@ -77,9 +77,9 @@ local RPC = {
         "Streets are watching. Smile.",
         "Drive safe. Run faster.",
         "Play clean. Get dirty money.",
-        "It’s not a problem if you profit.",
+        "It's not a problem if you profit.",
         "Clutch RP, scuffed plans.",
-        "Talk your way out. Or don’t.",
+        "Talk your way out. Or don't.",
         "Make it make sense (optional).",
         "High standards. Low bail.",
         "No pixel left un-hustled.",
@@ -96,7 +96,7 @@ local RPC = {
         "Make it big. Make it messy.",
         "Grindset: enabled. Common sense: off.",
         "More RP than your tyres have tread.",
-        "The hustle is real. The alibi isn’t.",
+        "The hustle is real. The alibi isn't.",
         "We RP. The city reacts.",
         "Live, laugh, lawyer up.",
         "Your job is your cover.",
@@ -107,95 +107,95 @@ local RPC = {
         "Soft hearts. Hard pursuits.",
         "We sell dreams and regret.",
         "Better RP through poor decisions.",
-        "Where “just one more job” lives.",
-        "Don’t worry, it’s “for RP.”",
+        "Where 'just one more job' lives.",
+        "Don't worry, it's 'for RP.'",
         "Make the story worth the sentence.",
     },
 
     RareLines = {
         "Definitely not doing crime. Again.",
         "Innocent until I log off.",
-        "This is fine. 🔥 (it’s not)",
+        "This is fine. 🔥 (it's not)",
         "Your honour, it was lag.",
         "If found, return to my lawyer.",
         "10-80? Never heard of her.",
         "Just borrowing this vehicle.",
-        "It’s not stolen. It’s relocated.",
+        "It's not stolen. It's relocated.",
         "I plead: oopsie daisy.",
-        "Officer, I’m roleplaying.",
+        "Officer, I'm roleplaying.",
         "This is a misunderstanding… aggressively.",
         "I saw the sign. I ignored it.",
-        "Today’s mood: probable cause.",
+        "Today's mood: probable cause.",
         "Nothing to see here. Move along.",
         "My pockets? Decorative.",
-        "I’m just a humble entrepreneur.",
+        "I'm just a humble entrepreneur.",
         "Taxes? Never met her.",
-        "Witnesses are temporary. Dashcams aren’t.",
-        "My GPS said “run.”",
-        "If it’s illegal, why is it profitable?",
-        "I can explain. I won’t, but I can.",
+        "Witnesses are temporary. Dashcams aren't.",
+        "My GPS said 'run.'",
+        "If it's illegal, why is it profitable?",
+        "I can explain. I won't, but I can.",
         "That was my evil twin.",
         "Blame the locals.",
         "I was framed by my own decisions.",
-        "I’m not speeding. I’m time travelling.",
+        "I'm not speeding. I'm time travelling.",
         "This car handles like my life: poorly.",
-        "Don’t tase me, I’m the storyline!",
+        "Don't tase me, I'm the storyline!",
         "I thought the siren was ambience.",
-        "It’s a rental. Trust me.",
-        "I’m allergic to handcuffs.",
-        "Crime? I prefer “side quests.”",
+        "It's a rental. Trust me.",
+        "I'm allergic to handcuffs.",
+        "Crime? I prefer 'side quests.'",
         "My lawyer said stop talking.",
-        "If I stop, I’ll have to think.",
+        "If I stop, I'll have to think.",
         "The city made me do it.",
-        "I’m a good person with bad timing.",
+        "I'm a good person with bad timing.",
         "I pay bail like a subscription.",
-        "I didn’t run. I repositioned.",
-        "I’m just here for the vibes (and money).",
-        "Sir, that’s not my bag. That’s my future.",
-        "I’m doing cardio from the police.",
-        "“Allegedly” is my middle name.",
+        "I didn't run. I repositioned.",
+        "I'm just here for the vibes (and money).",
+        "Sir, that's not my bag. That's my future.",
+        "I'm doing cardio from the police.",
+        "'Allegedly' is my middle name.",
         "I swear this is a legal speed.",
-        "I’m being chased for character growth.",
+        "I'm being chased for character growth.",
         "This pursuit is sponsored by regret.",
-        "If I’m quiet, maybe they’ll forget me.",
+        "If I'm quiet, maybe they'll forget me.",
         "I consent to nothing.",
-        "I’m on my way to become a better person.",
-        "Dispatch, it’s a skill issue.",
+        "I'm on my way to become a better person.",
+        "Dispatch, it's a skill issue.",
         "I would like to respawn, please.",
         "That light was green… emotionally.",
         "My bad. (derogatory)",
         "Your honour, I was just vibing.",
-        "I thought “felony” meant fast.",
+        "I thought 'felony' meant fast.",
         "This is not what I meant by free roam.",
-        "I’m wanted for being iconic.",
-        "Sirens behind me? That’s my soundtrack.",
-        "I’m not resisting, I’m emoting.",
-        "I’m innocent. Ask my accomplice.",
+        "I'm wanted for being iconic.",
+        "Sirens behind me? That's my soundtrack.",
+        "I'm not resisting, I'm emoting.",
+        "I'm innocent. Ask my accomplice.",
         "I have rights and no plan.",
-        "I swear I’m a civilian.",
-        "The plan was flawless. The execution wasn’t.",
-        "I’m a changed person. Temporarily.",
+        "I swear I'm a civilian.",
+        "The plan was flawless. The execution wasn't.",
+        "I'm a changed person. Temporarily.",
         "If I die, tell my stash I love it.",
-        "I’m not a criminal, I’m content.",
-        "Officer, you’re hurting my narrative.",
-        "I’m fine. Everything is scuffed.",
-        "I didn’t panic. I improvised.",
+        "I'm not a criminal, I'm content.",
+        "Officer, you're hurting my narrative.",
+        "I'm fine. Everything is scuffed.",
+        "I didn't panic. I improvised.",
         "This is my legal driving style.",
-        "I’m going to turn myself in… eventually.",
-        "I’m not running, I’m late.",
-        "That’s not contraband. That’s seasoning.",
+        "I'm going to turn myself in… eventually.",
+        "I'm not running, I'm late.",
+        "That's not contraband. That's seasoning.",
         "I forgot my license. And my morals.",
         "This chase is pay-to-win.",
         "My car is faster than my conscience.",
-        "I’m being oppressed by speed limits.",
-        "I’m a law enthusiast. From afar.",
+        "I'm being oppressed by speed limits.",
+        "I'm a law enthusiast. From afar.",
         "The only thing I smuggle is anxiety.",
-        "I’m not guilty, I’m just unlucky.",
+        "I'm not guilty, I'm just unlucky.",
         "Can we do this after I clock out?",
-        "Tell the judge I said “gg.”",
-        "It’s not money laundering, it’s hygiene.",
-        "I’m a pacifist with a felony.",
-        "I’m not suspicious, I’m moisturized.",
+        "Tell the judge I said 'gg.'",
+        "It's not money laundering, it's hygiene.",
+        "I'm a pacifist with a felony.",
+        "I'm not suspicious, I'm moisturized.",
     },
 }
 
@@ -234,13 +234,11 @@ local OnlineCount = 0
 local MaxClients = tonumber(GetConvar('sv_maxclients', '48')) or 48
 
 local function nowMs() return GetGameTimer() end
-    
--- Discord RPC button helper (max 2 buttons; indices 0/1). Re-applies periodically to avoid Discord/FiveM flakiness.
--- =========================
--- DISCORD BUTTONS (SAFE)
--- =========================
-local actionsAppliedAt = 0
 
+-- =========================
+-- DISCORD BUTTONS
+-- Uses the same simple startup logic as the working discord.lua file.
+-- =========================
 local function sanitizeButtons(buttons)
     local out = {}
     if type(buttons) ~= "table" then return out end
@@ -248,38 +246,19 @@ local function sanitizeButtons(buttons)
     for _, b in pairs(buttons) do
         if type(b) == "table" then
             local name = b.name or b.text
-            local url  = b.url
+            local url = b.url
             if type(name) == "string" and name ~= "" and type(url) == "string" and url ~= "" then
-                out[#out + 1] = { index = b.index, name = name, url = url }
+                out[#out + 1] = {
+                    index = (b.index == 0 or b.index == 1) and b.index or (#out),
+                    name = name,
+                    url = url,
+                }
             end
         end
-    end
-
-    if #out > 2 then
-        out = { out[1], out[2] }
-    end
-
-    for i, b in ipairs(out) do
-        b.index = (b.index == 0 or b.index == 1) and b.index or (i - 1)
+        if #out == 2 then break end
     end
 
     return out
-end
-
-local function applyDiscordActions(force)
-    local t = GetGameTimer()
-    if (not force) and (t - actionsAppliedAt) < 15000 then
-        return
-    end
-
-    -- AppId must be set before actions.
-    SetDiscordAppId(RPC.AppId)
-    local btns = sanitizeButtons(RPC.Buttons)
-    for _, v in ipairs(btns) do
-        pcall(SetDiscordRichPresenceAction, v.index, v.name, v.url)
-    end
-
-    actionsAppliedAt = t
 end
 
 local function pickRandom(list) return list[math.random(1, #list)] end
@@ -325,7 +304,7 @@ local function fmtJob()
     local grade = (job.grade and (job.grade.name or job.grade.level)) or ""
     local duty = (job.onduty == true) and "On Duty" or "Off Duty"
 
-    -- Emergency/service “special” formatting
+    -- Emergency/service "special" formatting
     if job.type == "leo" then
         return ("LEO • %s (%s)"):format(grade ~= "" and grade or label, duty)
     elseif job.type == "ems" then
@@ -377,7 +356,7 @@ local function buildPresence()
 
     local identity = RPC.ShowPlayerName and ("ID %s • %s"):format(pId, pName) or ("ID %s"):format(pId)
 
-    -- “Details line” gets: identity + job + accurate count
+    -- "Details line" gets: identity + job + accurate count
     local details = ("%s • %s • %d/%d online"):format(identity, jobText, OnlineCount, MaxClients)
 
     local statusBits = {}
@@ -467,9 +446,7 @@ end
 -- QBCORE SYNC
 -- =========================
 local function refreshPlayerData()
-            applyDiscordActions(true)
-applyDiscordActions(true)
-local pd = QBCore.Functions.GetPlayerData()
+    local pd = QBCore.Functions.GetPlayerData()
     if pd then PlayerData = pd end
 end
 
@@ -498,7 +475,7 @@ RegisterNetEvent('rpc:client:SetPlayerCount', function(count, maxClients)
 end)
 
 -- =========================
--- PS-DISPATCH “RESPONDING” HOOKS
+-- PS-DISPATCH "RESPONDING" HOOKS
 -- =========================
 local function isDispatchJob()
     local job = PlayerData and PlayerData.job
@@ -519,23 +496,43 @@ RegisterNetEvent('ps-dispatch:client:DispatchNotify', bumpDispatchStatus)
 
 -- =========================
 -- INIT DISCORD BUTTONS + ASSETS
+-- Keep the button/app setup in one place and re-apply it periodically,
+-- so it behaves like the simple working discord.lua pattern but survives
+-- Discord/FiveM RPC refreshes.
 -- =========================
+local function applyDiscordButtons()
+    local buttons = sanitizeButtons(RPC.Buttons)
+    for i = 0, 1 do
+        local b = buttons[i + 1]
+        if b then
+            SetDiscordRichPresenceAction(i, b.name, b.url)
+        end
+    end
+end
+
 CreateThread(function()
     math.randomseed(GetGameTimer())
 
-    -- allow QBCore/PlayerData to populate
+    -- Allow QBCore/PlayerData to populate
     Wait(1500)
     refreshPlayerData()
-end)
 
-CreateThread(function()
     while true do
-        SetDiscordAppId(RPC.AppId)
-        applyDiscordActions()
+        -- Match the working script flow: app first, then assets, then buttons.
+        SetDiscordAppId(tostring(RPC.AppId))
         SetDiscordRichPresenceAsset(RPC.LargeAsset)
         SetDiscordRichPresenceAssetText(RPC.LargeText)
         SetDiscordRichPresenceAssetSmall(RPC.SmallAsset)
         SetDiscordRichPresenceAssetSmallText(RPC.SmallText)
+
+        if firstSpawn then
+            applyDiscordButtons()
+            firstSpawn = false
+        else
+            -- Re-apply on refresh in case Discord/FiveM clears button state.
+            applyDiscordButtons()
+        end
+
         Wait(RPC.AssetIntervalMs)
     end
 end)
@@ -550,7 +547,7 @@ CreateThread(function()
         local details, state = buildPresence()
         if details and state then
             if details ~= lastDetails or state ~= lastState then
-                SetRichPresence(details .. "\n" .. state)
+                SetRichPresence(state .. "\n" .. details)
                 lastDetails, lastState = details, state
             end
         end
